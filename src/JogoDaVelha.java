@@ -130,16 +130,23 @@ public class JogoDaVelha extends JFrame {
         btn.setText("X");
         xo = true;
         maquina();
-        ganhou();
     }
 
     protected void maquina() {
         int random = (int) (Math.random() * 9);
-        if (click[0] && click[2] && click[6] && click[8] && click[1] && click[3] && click[4] && click[5] && click[7]) ganhou();
-        else if (click[0] || click[2] || click[6] || click[8] || click[1] || click[3] || click[4] || click[5] || click[7]) {
-            if (!click[random]) Selecionar(random);
+
+        if (click[0] && click[1] && click[2] && click[3] && click[4] && click[5] && click[6] && click[7] && click[8]) ganhou();
+        else if (!click[0] && (bt[1].getText() == "X" && bt[2].getText() == "X" || bt[3].getText() == "X" && bt[6].getText() == "X")) Selecionar(0);
+        else if (!click[2] && (bt[5].getText() == "X" && bt[8].getText() == "X")) Selecionar(2);
+        else if (!click[8] && (bt[7].getText() == "X" && bt[6].getText() == "X" || bt[2].getText() == "X" && bt[5].getText() == "X")) Selecionar(8);
+        else if (!click[7] && bt[4].getText() == "X" && bt[1].getText() == "X") Selecionar(7);
+        else if (!click[6] && (bt[3].getText() == "X" && bt[0].getText() == "X")) Selecionar(6);
+        else if (click[0] || click[1] || click[2] || click[3] || click[4] || click[5] || click[6] || click[7] || click[8] || click[9]) {
+            if (click[4] && !click[random]) Selecionar(random);
+            else if (!click[4]) Selecionar(4);
             else maquina();
         }
+        ganhou();
     }
 
     protected void atualizar() {
@@ -147,6 +154,9 @@ public class JogoDaVelha extends JFrame {
         pO.setText("O " + PO);
         empate.setText("Empate " + EMPATE);
     }
+
+
+
 
     protected void ganhou() {
         if(
